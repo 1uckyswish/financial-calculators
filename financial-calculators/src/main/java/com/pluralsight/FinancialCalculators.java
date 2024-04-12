@@ -12,7 +12,6 @@ public class FinancialCalculators {
 
     public static void mortgageCalculator (Scanner scanner) {
         System.out.println("Welcome to the Mortgage Calculator!");
-
         // Prompt user for input
         System.out.println("Please enter the following information:");
         //Initialize variable's for math
@@ -26,7 +25,7 @@ public class FinancialCalculators {
             System.out.print("Loan Term (years): ");
             years = scanner.nextInt();
 
-            System.out.print("Annual Interest Rate: ");
+            System.out.print("Annual Interest Rate (%): ");
             interest = scanner.nextDouble();
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter a valid number.");
@@ -36,7 +35,6 @@ public class FinancialCalculators {
             mortgageCalculator(scanner);
             return; // Exit the method, so it doesn't stay stuck in error message
         }
-
         double monthlyInterestRate = interest / 1200;
         int payments = years * 12;
         double monthlyMortgagePayment = principle * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, payments)) / (Math.pow(monthlyInterestRate + 1, payments) - 1);
@@ -45,9 +43,8 @@ public class FinancialCalculators {
 
         double totalLoan = payments * monthlyMortgagePayment;
         double totalInterest = totalLoan - principle;
-        System.out.printf("Exciting news! The total interest on your loan is: $%.2f\n", totalInterest);
-        System.out.printf("Congratulations! Your loan will cost you: $%.2f\n", totalLoan);
-
+        System.out.printf("Exciting news! The total interest on your loan is: $%,.2f\n", totalInterest);
+        System.out.printf("Congratulations! Your loan will cost you: $%,.2f\n", totalLoan);
         thankUserAndRepeat(scanner);
     }
 
@@ -56,7 +53,6 @@ public class FinancialCalculators {
         System.out.println("Welcome to the Future Value Calculator!");
         // Prompt user for input
         System.out.println("Please enter the following information:");
-
         //Initialize variable's for math
         double principle; double interestRate; int time;
         //Error handle with a try catch. If the user types an incorrect data type for values it catches it
@@ -76,18 +72,14 @@ public class FinancialCalculators {
             futureValue(scanner); // Call the method again to prompt user for input
             return; // Exit the method
         }
-
         // Calculate future value
         int number = 365;
         double nt = number * time;
         double balance = principle * Math.pow((1 + interestRate / number), nt);
-
         // Calculate total interest earned
         double totalInterest = balance - principle;
-
-        System.out.printf("Congratulations! Your ending balance is: $%.2f We hope this brings you closer to your financial goals.\n", balance);
-        System.out.printf("You've will earn a total of $%.2f in interest!\n", totalInterest);
-
+        System.out.printf("Congratulations! Your ending balance is: $%,.2f We hope this brings you closer to your financial goals.\n", balance);
+        System.out.printf("You've will earn a total of $%,.2f in interest!\n", totalInterest);
         thankUserAndRepeat(scanner);
     }
 
@@ -112,13 +104,10 @@ public class FinancialCalculators {
             presentValueCalculator(scanner); // Call the method again to prompt user for input
             return; // Exit the method
         }
-
         // convert the 20 years into monthly payments which is 240
         double periods = years * 12; // Convert years to monthly periods
-
-
         double value = monthly * (1 - Math.pow((1 + interest), -periods)) / interest;
-        System.out.printf("Your total annuity is: $%.2f Thank you for using our system!", value);
+        System.out.printf("Your total annuity is: $%,.2f Thank you for using our system!", value);
         thankUserAndRepeat(scanner);
     }
 
