@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class FinancialCalculators {
     public static void main(String[] args) {
+        //Scanner in main to pass through methods
         Scanner scanner = new Scanner(System.in);
+        //Method for program start.
         promptUserCalculators(scanner);
     }
 
@@ -13,10 +15,10 @@ public class FinancialCalculators {
 
         // Prompt user for input
         System.out.println("Please enter the following information:");
-        double principle = 0;
-        int years = 0;
-        double interest = 0;
-
+        //Initialize variable's for math
+        double principle; int years; double interest;
+        //Error handle with a try catch. If the user types an incorrect data type for values it catches it
+        //Throws Exception that catches all errors
         try {
             System.out.print("Loan Amount (principle): ");
             principle = scanner.nextDouble();
@@ -32,20 +34,20 @@ public class FinancialCalculators {
             //since the user typed a string then we need to fix the buffer error
             scanner.nextLine();
             mortgageCalculator(scanner);
-            return; // Exit the method so it doesnt stay stuck in error message
+            return; // Exit the method, so it doesn't stay stuck in error message
         }
 
         double monthlyInterestRate = interest / 1200;
         int payments = years * 12;
         double monthlyMortgagePayment = principle * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, payments)) / (Math.pow(monthlyInterestRate + 1, payments) - 1);
 
-        System.out.printf("Your monthly payment will be $%.2f \n", monthlyMortgagePayment);
+        System.out.printf("Great news! Your monthly mortgage payment will be: $%.2f. You're one step closer to owning your dream home!\n", monthlyMortgagePayment);
 
         double totalLoan = payments * monthlyMortgagePayment;
         double totalInterest = totalLoan - principle;
+        System.out.printf("Exciting news! The total interest on your loan is: $%.2f\n", totalInterest);
+        System.out.printf("Congratulations! Your loan will cost you: $%.2f\n", totalLoan);
 
-        System.out.printf("This loan will cost you $%.2f \n", totalLoan);
-        System.out.printf("The total interest is $%.2f\n", totalInterest);
         thankUserAndRepeat(scanner);
     }
 
@@ -55,11 +57,10 @@ public class FinancialCalculators {
         // Prompt user for input
         System.out.println("Please enter the following information:");
 
-
-        double principle = 0;
-        double interestRate = 0;
-        int time = 0;
-
+        //Initialize variable's for math
+        double principle; double interestRate; int time;
+        //Error handle with a try catch. If the user types an incorrect data type for values it catches it
+        //Throws Exception that catches all errors
         try {
             System.out.print("Initial Balance (Principle): ");
             principle = scanner.nextDouble(); // Initial balance
@@ -84,8 +85,9 @@ public class FinancialCalculators {
         // Calculate total interest earned
         double totalInterest = balance - principle;
 
-        System.out.printf("Your ending balance is $%.2f \n", balance);
-        System.out.printf("Total interest earned is $%.2f\n", totalInterest);
+        System.out.printf("Congratulations! Your ending balance is: $%.2f We hope this brings you closer to your financial goals.\n", balance);
+        System.out.printf("You've will earn a total of $%.2f in interest!\n", totalInterest);
+
         thankUserAndRepeat(scanner);
     }
 
@@ -93,10 +95,10 @@ public class FinancialCalculators {
         System.out.println("Welcome to the Present Value Calculator!");
         // prompt for input
         System.out.println("Please enter the following information:");
-        double monthly = 0;
-        double years = 0;
-        double interest = 0;
-
+        //Initialize variable's for math
+        double monthly; double years; double interest;
+        //Error handle with a try catch. If the user types an incorrect data type for values it catches it
+        //Throws Exception that catches all errors
         try{
             System.out.print("Monthly Payment: ");
              monthly = scanner.nextDouble();
@@ -116,18 +118,23 @@ public class FinancialCalculators {
 
 
         double value = monthly * (1 - Math.pow((1 + interest), -periods)) / interest;
-        System.out.printf("total annunity $%.2f ", value);
+        System.out.printf("Your total annuity is: $%.2f Thank you for using our system!", value);
         thankUserAndRepeat(scanner);
     }
 
     public static void promptUserCalculators(Scanner scanner){
+        //Intro to program where it greets user with options
         System.out.println("**** Hello and Welcome to Java Financial ****");
         System.out.println("Which calculation do you need to get done?\n");
-        System.out.println("(A) Mortgage Calculator\n" +
-                "(B) Future Value Calculator\n" +
-                "(C) Present Value Calculator");
+        System.out.println("""
+                (A) Mortgage Calculator
+                (B) Future Value Calculator
+                (C) Present Value Calculator""");
         System.out.print("Select one of the three above to continue: ");
         String userChoice = scanner.next();
+        //Made the option uppercase for error handle
+        //Switch statement for the three calculators
+        //If the case passes it runs the calculator else it reruns the program again
         switch (userChoice.toUpperCase()){
             case "A":
                  mortgageCalculator(scanner); return;
@@ -138,21 +145,25 @@ public class FinancialCalculators {
             default:
                 System.out.println("*** Sorry, please choose one of the three options above *** \n");
                 promptUserCalculators(scanner);
-                return;
         }
 
     }
 
     public static void thankUserAndRepeat(Scanner scanner){
+        //Automatic message for everytime a user uses a calculator
         System.out.println("Thank you for using Java Financial");
         System.out.print("Do you need help with anything else? (yes/no) ");
+        //takes user input if they want to try the other calculators
         String userChoice = scanner.next();
+        // Forces user to type only yes or no
         if(!userChoice.equalsIgnoreCase("yes") && !userChoice.equalsIgnoreCase("no")){
             System.out.println("**** Please type either (yes/no) thank you ****\n");
             thankUserAndRepeat(scanner);
+            //if yes then re-run program again
         }else if(userChoice.equalsIgnoreCase("yes")){
             promptUserCalculators(scanner);
         }else{
+            // if no then say goodbye
             System.out.println("Bye now don't hesitate to reach out again if needed - Java Financial EST 1995");
         }
     }
