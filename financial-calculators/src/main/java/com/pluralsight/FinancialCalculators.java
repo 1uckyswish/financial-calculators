@@ -101,6 +101,7 @@ public class FinancialCalculators {
         }catch (Exception e){
             System.out.println("Invalid input. Please enter a valid number.");
             scanner.next(); // Clear the scanner buffer
+
             presentValueCalculator(scanner); // Call the method again to prompt user for input
             return; // Exit the method
         }
